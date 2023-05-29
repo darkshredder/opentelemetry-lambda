@@ -67,16 +67,16 @@ func NewManager(ctx context.Context, logger *zap.Logger, version string) (contex
 	}
 
 	listener := telemetryapi.NewListener(logger)
-	addr, err := listener.Start()
+	_, err = listener.Start()
 	if err != nil {
 		logger.Fatal("Cannot start Telemetry API Listener", zap.Error(err))
 	}
 
-	telemetryClient := telemetryapi.NewClient(logger)
-	_, err = telemetryClient.Subscribe(ctx, res.ExtensionID, addr)
-	if err != nil {
-		logger.Fatal("Cannot register Telemetry API client", zap.Error(err))
-	}
+	// telemetryClient := telemetryapi.NewClient(logger)
+	// _, err = telemetryClient.Subscribe(ctx, res.ExtensionID, addr)
+	// if err != nil {
+	// 	logger.Fatal("Cannot register Telemetry API client", zap.Error(err))
+	// }
 
 	lm := &manager{
 		logger:          logger.Named("lifecycle.manager"),
